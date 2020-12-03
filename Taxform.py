@@ -1,4 +1,4 @@
-#calcola le tasse sul reddito di una persona fisica FIRST IMPLEMENTATION
+#calcola le tasse sul reddito di una persona fisica CASO DI STUDIO UNO
 
 #importi il modulo math di python, anche se la funzione round è disponibile in quanto appartiene al modulo __builtin__;
 import math
