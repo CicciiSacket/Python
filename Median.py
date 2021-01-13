@@ -9,7 +9,6 @@ for line in f:
     words = line.split()
     for word in words:
         numbers.append(float(word))
-
 numbers.sort()
 midpoint = len(numbers)//2
 if len(numbers) % 2 == 1:
