@@ -1,0 +1,1 @@
+#prendi in input una lista e tramite importazione dell modulo ove sono definite le funzioni per i parametri descrittivi, restiuiscine i risultati. VEDI SCREEN
