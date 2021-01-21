@@ -46,11 +46,11 @@ def media(dati):
 def mediana(dati):
     d = dati.copy()
     d.sort() #bubblesort abbreviato, per quanto è necessaria questa scombina l'ordine dei dati, si fa quindi unca copia della lista originale per evitare problemi futuri
-    midpoint = len(d)//2 #divisione intera e non reale, ovvero il numero approssimato alla cifra intera
+    #divisione intera e non reale, ovvero il numero approssimato alla cifra intera, n//n
     if len(d) % 2 == 1:
-        return d[midpoint]
+        return d[len(d)//2]
     else:
-        return (d[midpoint] + d[midpoint - 1]) / 2
+        return (d[len(d)//2] + d[len(d)//2 - 1]) // 2
 
 def primoQuartile(dati): 
     firstHalf = []
@@ -63,8 +63,7 @@ def primoQuartile(dati):
 def terzoQuartile(dati):
     secondHalf = []
     m = mediana(dati)
-    for x in dati:
-        if x > m:
-            secondHalf.append(x)
+    for y in dati:
+        if y > m:
+            secondHalf.append(y)
         return mediana(secondHalf)
-# print(terzoQuartile(esempio))
