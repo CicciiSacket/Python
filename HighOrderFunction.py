@@ -44,3 +44,12 @@ def x(n,m):
     return n * m
 
 print(reduce(x,[1,1,1,1,1,1,0,1]))
+
+""" LAMBDA: funzione anonima che definisce i nomi dei proprio argomenti ed e seguita da un espressione, il tutto su una sola riga  """
+from functools import reduce
+
+data = [1,2,3,4]
+
+print(reduce(lambda x,y : x + y, data)) #torna la somma
+print(reduce(lambda x,y : x * y, data)) #torna il prodotto
+
