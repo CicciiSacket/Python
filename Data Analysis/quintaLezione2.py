@@ -28,7 +28,7 @@ def mediana(dati):
     if len(d) % 2 == 1:
         return d[len(d)//2]
     else:
-        return (d[len(d)//2] + d[len(d)//2 - 1]) // 2
+        return (d[len(d)//2] + d[(len(d)//2) - 1]) / 2
  #torna sempre 0.0
 
 def minimo(dati):
@@ -49,21 +49,21 @@ def massimo(dati):
             temp = x
     return temp
 
-def primoQuartile(dati): 
-    firstHalf = []
-    m = mediana(dati)
+def primoQuartile(dati):
+    primaMeta=[]
+    m=mediana(dati)
     for x in dati:
-        if x <= m:
-            firstHalf.append(x)
-    return mediana(firstHalf)
+        if x<=m:
+            primaMeta.append(x)
+    return mediana(primaMeta)
 
 def terzoQuartile(dati):
-    secondHalf = []
-    m = mediana(dati)
-    for y in dati:
-        if y > m:
-            secondHalf.append(y)
-        return mediana(secondHalf)
+    secondaMeta=[]
+    m=mediana(dati)
+    for x in dati:
+        if x>m :
+            secondaMeta.append(x)
+    return mediana(secondaMeta)
 
 def varianza(dati):
     result = 0.0
@@ -73,12 +73,9 @@ def varianza(dati):
         result += (1/(eM-1)) * ((dati[count] - med) ** 2)
     return result
         
-print(varianza(S))
-print(varianza(L))
-
 def deviazioneStandard(dati):
     return math.sqrt(varianza(dati))
 
-print(deviazioneStandard(S))
-print(deviazioneStandard(L))
-
+print(mediana(L))
+print(primoQuartile(L))
+print(terzoQuartile(L))

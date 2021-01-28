@@ -50,20 +50,23 @@ def mediana(dati):
     if len(d) % 2 == 1:
         return d[len(d)//2]
     else:
-        return (d[len(d)//2] + d[len(d)//2 - 1]) // 2
+        return (d[len(d)//2] + d[len(d)//2 - 1]) / 2
 
-def primoQuartile(dati): 
-    firstHalf = []
-    m = mediana(dati)
+def primoQuartile(dati):
+    primaMeta=[]
+    m=mediana(dati)
     for x in dati:
-        if x <= m:
-            firstHalf.append(x)
-    return mediana(firstHalf)
+        if x<=m:
+            primaMeta.append(x)
+    return mediana(primaMeta)
 
 def terzoQuartile(dati):
-    secondHalf = []
-    m = mediana(dati)
-    for y in dati:
-        if y > m:
-            secondHalf.append(y)
-        return mediana(secondHalf)
+    secondaMeta=[]
+    m=mediana(dati)
+    for x in dati:
+        if x>m :
+            secondaMeta.append(x)
+    return mediana(secondaMeta)
+
+print(primoQuartile(esempio))
+print(terzoQuartile(esempio))
