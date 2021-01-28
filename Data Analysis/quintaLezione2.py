@@ -20,7 +20,7 @@ for i in range(1000000): #più grande è il numero più preciso sarà il risulta
 
 def media(dati):
     return sum(dati) / len(dati)
-print(media(S)) #viene circa 0.5
+ #viene circa 0.5
 
 def mediana(dati):
     d = dati.copy()
@@ -29,7 +29,7 @@ def mediana(dati):
         return d[len(d)//2]
     else:
         return (d[len(d)//2] + d[len(d)//2 - 1]) // 2
-print(mediana(S)) #torna sempre 0.0
+ #torna sempre 0.0
 
 def minimo(dati):
     min(dati)
@@ -39,7 +39,6 @@ def minimo(dati):
         if temp > x:
             temp = x
     return temp
-print(minimo(S))
 
 def massimo(dati):
     max(dati)
@@ -49,7 +48,6 @@ def massimo(dati):
         if temp < x:
             temp = x
     return temp
-print(massimo(S))
 
 def primoQuartile(dati): 
     firstHalf = []
@@ -58,8 +56,6 @@ def primoQuartile(dati):
         if x <= m:
             firstHalf.append(x)
     return mediana(firstHalf)
-print(primoQuartile(S))
-
 
 def terzoQuartile(dati):
     secondHalf = []
@@ -68,6 +64,21 @@ def terzoQuartile(dati):
         if y > m:
             secondHalf.append(y)
         return mediana(secondHalf)
-print(terzoQuartile(S))
 
-#inserire varianza e deviazione standard in terza lezione!
+def varianza(dati):
+    result = 0.0
+    med = media(dati)
+    eM = len(dati)
+    for count in range(eM):
+        result += (1/(eM-1)) * ((dati[count] - med) ** 2)
+    return result
+        
+print(varianza(S))
+print(varianza(L))
+
+def deviazioneStandard(dati):
+    return math.sqrt(varianza(dati))
+
+print(deviazioneStandard(S))
+print(deviazioneStandard(L))
+
