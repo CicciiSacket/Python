@@ -68,14 +68,15 @@ def terzoQuartile(dati):
 def varianza(dati):
     result = 0.0
     med = media(dati)
-    eM = len(dati)
-    for count in range(eM):
-        result += (1/(eM-1)) * ((dati[count] - med) ** 2)
+    for count in range(len(dati)):
+        result += (1/(len(dati)-1)) * ((dati[count] - med) ** 2)
     return result
         
 def deviazioneStandard(dati):
     return math.sqrt(varianza(dati))
 
-print(mediana(L))
-print(primoQuartile(L))
-print(terzoQuartile(L))
+print(mediana(S))
+print(primoQuartile(S))
+print(terzoQuartile(S))
+print(varianza(S))
+print(deviazioneStandard(S))
