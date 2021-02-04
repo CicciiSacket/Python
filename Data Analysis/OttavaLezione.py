@@ -60,3 +60,40 @@ plt.title('Directive joy')
 plt.plot(x, x*x, '--g')
 plt.grid(color = (0,0,1))
 
+
+
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+ 
+import math as mh
+import numpy as np
+import numpy.random
+import matplotlib.pyplot as plt 
+
+#distribuzione uniforme e distribuzione gaussiana 
+
+plt.figure('distribuzioni casuali',figsize=(1,2))
+
+plt.subplot(1,2,1)
+plt.title('distribuzione uniforme')
+x = numpy.random.random(1000)
+y = numpy.random.random(1000) #random per la distribuzione uniforme
+plt.xlim(-5,5)
+plt.ylim(-5,5)
+plt.grid()
+plt.plot(x,y,'.b')
+
+plt.subplot(1,2,2)
+plt.title('distribuzione normale')
+x = numpy.random.randn(1000) #randn per la distribuzione normale
+y = numpy.random.randn(1000)
+#plt.xlim(-5,5)
+#plt.ylim(-5,5)
+plt.grid()
+plt.plot(x,y,'.b')
+
+#%matplotlib qt in finestra nuova
