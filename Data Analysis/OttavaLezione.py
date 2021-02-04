@@ -67,6 +67,7 @@ plt.grid(color = (0,0,1))
 Spyder Editor
 
 This is a temporary script file.
+parte due 
 """
  
 import math as mh
@@ -97,3 +98,36 @@ plt.grid()
 plt.plot(x,y,'.b')
 
 #%matplotlib qt in finestra nuova
+
+
+
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+parte tre
+"""
+ 
+import math as mh
+import numpy as np
+import numpy.random
+import matplotlib.pyplot as plt 
+
+#creiamo dei dati di esempio e calcoliamo i loro descrittori
+D =np.array([12,15,17,1,23,-3,60]) #posso fare riferimento ai metodi della libreria numpy o ai metodi dell'oggetto array
+print(D.min())
+print(D.max())
+print(D.mean()) #media
+print(np.median(D)) #mediano
+print(np.mean(D))
+print(np.max(D))
+print(np.min(D))
+
+#calcolo dei quartili, ovvero caso speciale del calcolo dei percentili
+print("primo quartile", np.percentile(D,25)) #25 perchè 25% == 1/4
+print("mediano", np.percentile(D,50))
+print("terzo quartile", np.percentile(D,75)) #75 perchè 3/4
+print("varianza", np.var(D))
+print("deviazione standard", mh.sqrt(np.var(D)))
+print("renge interquartile",(np.percentile(D,75) - np.percentile(D,25))) #terzo quartile - primo quartile
