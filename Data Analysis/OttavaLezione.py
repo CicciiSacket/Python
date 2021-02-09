@@ -95,6 +95,7 @@ y = numpy.random.randn(1000)
 #plt.xlim(-5,5)
 #plt.ylim(-5,5)
 plt.grid()
+plt.xticks(np.arange(0,100,10))#la griglia viene quadrata
 plt.plot(x,y,'.b')
 
 #%matplotlib qt in finestra nuova
