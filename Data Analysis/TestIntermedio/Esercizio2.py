@@ -9,15 +9,14 @@ from numpy import random
 def generate():
     D = {}
     keys = []
-    for x in range(20):
-        x = random.randint(100)
-        keys.append(x)
     values = []
-    for y in range(20):
+    summ:float = 0.0
+    for y in range(0,21):
         y = random.rand()
         values.append(y)
-    for i in keys:
-        for n in range(len(values)):
-            D[i] = values[n]
-    return  D
-print(generate())
+        x = random.randint(100)
+        keys.append(x)    
+        D[x] = y
+        summ += y
+    minValue = min(list(D.keys()))
+    return "The sum value of D's values is "+ str(summ)+" min value of D's keys is " +str(minValue)
