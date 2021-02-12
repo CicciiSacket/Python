@@ -5,6 +5,9 @@ calcola la percentuale di abitanti totali per ciascuna provincia rispetto al tot
 produci un diagramma a torta che illustri la distribuzione degli abitanti per provincie
 calcola il rapporto num_maschi/num_femmine per provincia. Quale provincia rende minimo questo rapporto?
 """
+import numpy as np
+import matplotlib.pyplot as plt 
+
 
 totalPopulation = 5026989
 Populations = [
@@ -90,6 +93,11 @@ def rapportMF():
     minimo = str(min(Rapport))
     return minimo
 
+
+x = np.array([AgPercentage(),ClPercentage(),CtPercentage(),EnPercentage(),MePercentage(),PaPercentage(),RgPercentage(),SrPercentage(),TpPercentage()])
+label = ["AG", "CL", "CT", "EN","ME","PA","RG","SR","TP"]
+plt.pie(x, labels=label)
+plt.show()
 
 
 
