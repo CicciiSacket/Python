@@ -20,3 +20,4 @@ def generate():
         summ += y
     minValue = min(list(D.keys()))
     return "The sum value of D's values is "+ str(summ)+" min value of D's keys is " +str(minValue)
+print(generate())
