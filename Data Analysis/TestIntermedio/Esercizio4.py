@@ -96,7 +96,7 @@ def rapportMF():
 
 x = np.array([AgPercentage(),ClPercentage(),CtPercentage(),EnPercentage(),MePercentage(),PaPercentage(),RgPercentage(),SrPercentage(),TpPercentage()])
 label = ["AG", "CL", "CT", "EN","ME","PA","RG","SR","TP"]
-plt.pie(x, labels=label)
+plt.pie(x, labels=label,autopct="%.2f")
 plt.show()
 
 
