@@ -18,4 +18,12 @@ D.hist() #come si distribuiscono lungo le provincie1, istogramma
 D.plot.density() #istogramma curvo
 plt.figure()
 plt.plot(D.maschi,D.femmine,'*',markersize=22)
-# plt.show()
+D.corr() #indice di person, ovvero la correlazione tra le variabili, più vicino ad uno più direttamente proporzionali, mentre se -1 inversamente proporzionali [ >0.5 || <-0.5 signifigicativa, compresa tra i due valori è indicativa ma non significativa]
+
+#####
+df01 = pd.read_csv("Data Analysis/RieslingYield_vs_avgTemp_no_comment.csv")
+df01 = df01.set_index("year")
+plt.figure()
+plt.plot(df01.temp,df01.racc,"o",markersize=10) 
+plt.show()
+print(df01.corr())
