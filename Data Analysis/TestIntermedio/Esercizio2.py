@@ -11,7 +11,7 @@ def generate():
     keys = []
     values = []
     summ:float = 0.0
-    for y in range(0,21):
+    for y in range(0,20):
         y = random.rand()
         values.append(y)
         x = random.randint(100)

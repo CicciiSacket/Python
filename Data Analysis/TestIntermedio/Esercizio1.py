@@ -6,13 +6,13 @@ usa una funzione marge per concatenare le due liste senza avere doppioni
 
 def generateA ():
     A = []
-    for x in range(8,101,8):
+    for x in range(8,100,8):
         A.append(x)
     return A
 
 def generateB ():
     B = []
-    for x in range(6,101,6):
+    for x in range(6,100,6):
         B.append(x)
     return B
 
