@@ -27,3 +27,8 @@ plt.figure()
 plt.plot(df01.temp,df01.racc,"o",markersize=10) 
 plt.show()
 print(df01.corr())
+
+
+""" 
+Covarianza(x,y)= 1/N ∑(xi - mx) (yi - my)   
+"""
