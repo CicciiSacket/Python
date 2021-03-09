@@ -67,6 +67,19 @@ plt.imshow(P2.corr(),cmap='hot', interpolation='nearest')
 """ 
 Covarianza(x,y)= 1/N ∑(xi - mx) (yi - my)   
 Z_scoring = (voto - media) / (deviazione standard dei voti) #tutto viene riportato nella stessa scala a differenza dei dati in forma normale
-Regressione = costruire un modello a partire dai dati [ Abuso di linguaggio storico, in quanto non vi è nessuna regressione ma semplicemente un modello matematico ]
+Modello Regressivo  = costruire un modello a partire dai dati [ Abuso di linguaggio storico, in quanto non vi è nessuna regressione ma semplicemente un modello matematico ]
+                        y = c + ax + (errore che non possiamo prevedere) ==> y = c + ax [FORMULA DI REGRESSIONE LINEARE] {a = tangente dell'angolo alpha}
 """
+#per costruire una formula di regerssione lineare
+from statsmodels.formula.api import ols
 
+modello = ols("maschi ~ femmine",P2).fit()
+modello.params #visualizza i parametri del modello
+
+#calcoliamo le previsioni del modello
+F = list(P["femmine"].values)
+previsioni = modello.predict({"femmine":F})
+previsioni.index = P.index
+errori = P["maschi"] - previsioni
+
+print(errori.mean())
