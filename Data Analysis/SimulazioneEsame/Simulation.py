@@ -70,13 +70,14 @@ Esercizio 5 (Aggiungere print)
 """
 Esercizio 6
 """
-modello = ols("BMI ~ weight",TUTTI).fit()
+#previsioni del BMI a partire dall'height
+modello = ols("BMI ~ height",TUTTI).fit()
 modello.params
-F = list(TUTTI["BMI"].values)
-previsioni = modello.predict({"weight":F})
+F = list(TUTTI["height"].values)
+previsioni = modello.predict({"height":F})
 previsioni.index = TUTTI.index
 errori = TUTTI["BMI"] - previsioni
-errori.mean()
+(errori.mean())
 
 """
 Esercizio 7
