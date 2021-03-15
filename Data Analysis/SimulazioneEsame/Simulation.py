@@ -3,7 +3,38 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy
 from scipy.stats import pearsonr
+from scipy import stats 
 from statsmodels.formula.api import ols
+
+def mediana(dati):
+    d = dati.copy()
+    d.sort()
+    if len(d) % 2 == 1:
+        return d[len(d)//2]
+    else:
+        return (d[len(d)//2] + d[len(d)//2 - 1]) / 2
+
+def primoQuartile(dati):
+    primaMeta=[]
+    m=mediana(dati)
+    for x in dati:
+        if x<=m:
+            primaMeta.append(x)
+    return mediana(primaMeta)
+
+def terzoQuartile(dati):
+    secondaMeta=[]
+    m=mediana(dati)
+    for x in dati:
+        if x>m :
+            secondaMeta.append(x)
+    return mediana(secondaMeta)
+
+
+
+
+
+
 
 """
 Esercizio 1 
@@ -82,3 +113,35 @@ errori = TUTTI["BMI"] - previsioni
 """
 Esercizio 7
 """
+Z = pd.DataFrame()
+Z["weight"] = stats.zscore(TUTTI["weight"])
+Z["height"] = stats.zscore(TUTTI["height"])
+
+"""
+Esercizio 8
+"""
+(Z.corr())
+
+"""
+Esercizio 9
+"""
+modello = ols("weight ~ height",TUTTI).fit()
+modello.params
+F = list(Z["height"].values)
+previsioni = modello.predict({"height":F})
+previsioni.index = TUTTI.index
+errori = TUTTI["weight"] - previsioni
+(errori.mean())
+
+"""
+Esercizio 10
+"""
+Z2 = pd.DataFrame()
+first = primoQuartile(list(Z["weight"]))
+thirth = terzoQuartile(list(Z["weight"]))
+result1 = Z["weight"][Z["weight"] >= first]
+result0 = Z["weight"][Z["weight"] <= thirth]
+z2 = list(result0) + list(result1)
+Z2["weight"] = z2
+
+
