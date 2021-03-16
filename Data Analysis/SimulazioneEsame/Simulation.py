@@ -141,7 +141,12 @@ first = primoQuartile(list(Z["weight"]))
 thirth = terzoQuartile(list(Z["weight"]))
 result1 = Z["weight"][Z["weight"] >= first]
 result0 = Z["weight"][Z["weight"] <= thirth]
-z2 = list(result0) + list(result1)
-Z2["weight"] = z2
+z2 = (result0) + (result1)
+Z2["weight"] = z2.unique()
 
-
+"""
+Esercizio 11
+"""
+plt.figure('Esercizio 11')
+plt.plot(Z2)
+plt.show()
