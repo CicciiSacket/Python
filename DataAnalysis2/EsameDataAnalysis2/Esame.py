@@ -4,16 +4,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt  
 from scipy import stats 
-from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.model_selection import cross_val_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
-from sklearn.tree import DecisionTreeClassifier
 
 data_set = pd.read_csv('weight-height.csv')
 data_set.columns = ['Gender', 'Height', 'Weight']
 data_set.head()
-
 
 
 """ Effettuare un'analisi statistica calcolando i principali indici statistici """ 
@@ -51,14 +49,29 @@ F = list(zip(Females['Weight'], Females['Height']))
 #Gli istogrammi fatti ci portano a pensare che la classe degli uomini può essere distinta da quella delle donne e per testare questa ipotesi utilizziamo il t-test su Height e Weight 
 t_test = stats.ttest_ind(M,F) #I risultati del t-test sono in accordo con la nostra previsione che i due generi sono statisticamente separabili 
 alpha = .05
-prob = 1- alpha
-print(t_test.statistic)
-print(t_test.pvalue)
+prob = 1 - alpha
+df = len(M)+len(F)-2
+cv = stats.t.ppf(prob, df)
+
+print(t_test.statistic[0])
+print(df)
+print(cv)
+print(t_test.pvalue[0])
+
+if abs(t_test.statistic[0]) >= cv:
+    print('popolazione diverse') 
+else:
+    print('stessa popolazione')
+
+if t_test.pvalue[0] < alpha:
+    print('diversa popolazione')
+else:
+    print('popolazione stessa')
 
 plt.figure(figsize=(16,9))
 plt.title('Height vs Weight scatter plot', size= 25)
-plt.scatter(Males['Weight'], Males['Height'], c = 'DarkBlue', alpha= 0.4, marker= '^', label = 'Male')
-plt.scatter(Females['Weight'], Females['Height'], c = 'DarkRed', alpha= 0.4 , marker='*', label = 'Female')
+plt.scatter(Males['Weight'], Males['Height'], alpha= 0.4, marker= '^', label = 'Male')
+plt.scatter(Females['Weight'], Females['Height'], alpha= 0.4 , marker='*', label = 'Female')
 plt.xlabel('Weights', size= 25)
 plt.ylabel('Heights', size= 25)
 plt.legend(fontsize = 25)
@@ -69,62 +82,46 @@ plt.legend(fontsize = 25)
 #Usando la funzione stats.linregress() su altezza e peso è possibile ottenere tutte le informazioni richieste per il fit lineare
 print('Males')
 ym, xm = data_set['Height'][data_set['Gender'] == 'Male'], data_set['Weight'][data_set['Gender'] == 'Male']
-slope_m, intercept_m,r_value_m,p_value_m, std_err_m = stats.linregress(xm,ym)
-print('Slope: ', slope_m)
-print('Intercept: ', intercept_m)
-print('r value: ', r_value_m, 'R2: ', r_value_m**2)
-print('p value: ', p_value_m)
-print('Std err: ', std_err_m)
+slope_male, intercept_male,r_value_male,p_value_male, std_err_male = stats.linregress(xm,ym)
+print('Slope: ', slope_male)
+print('Intercept: ', intercept_male)
+print('r value: ', r_value_male, 'R2: ', r_value_male**2)
+print('p value: ', p_value_male)
+print('Std err: ', std_err_male)
 print('')
 print('Females')
 yf, xf = data_set['Height'][data_set['Gender'] == 'Female'], data_set['Weight'][data_set['Gender'] == 'Female']
-slope_f, intercept_f,r_value_f, p_value_f, std_err_f = stats.linregress(xf,yf)
-print('Slope: ', slope_f)
-print('Intercept: ', intercept_f)
-print('r value: ', r_value_f, 'R2: ', r_value_f**2)
-print('p value: ', p_value_f)
-print('Std err: ', std_err_f)
+slope_female, intercept_female,r_value_female, p_value_female, std_err_female = stats.linregress(xf,yf)
+print('Slope: ', slope_female)
+print('Intercept: ', intercept_female)
+print('r value: ', r_value_female, 'R2: ', r_value_female**2)
+print('p value: ', p_value_female)
+print('Std err: ', std_err_female)
 
-def predict(x,a,b):
-    return a * x +b
 
-fitLine = predict(xm,slope_m, intercept_m)
+
+fit_line = slope_male * xm + intercept_male
 plt.title('Regressione lineare tra altezza e peso')
-plt.scatter(xm,ym, c = 'DarkBlue', alpha = 0.4, label = 'Maschi')
-plt.plot(xm,fitLine, c='DarkRed',  label = 'Reg. maschi')
+plt.scatter(xm,ym, c = 'Blue', alpha = 0.4, label = 'Maschi')
+plt.plot(xm,fit_line, c='Red',  label = 'Reg. maschi')
 
-fitLine = predict(xf,slope_f, intercept_f)
+fit_line = slope_female * xf + intercept_female
 plt.scatter(xf,yf, c = 'yellow', alpha = 0.4, label = 'Femmine')
-plt.plot(xf,fitLine, c='green', label = 'Reg. femmine')
+plt.plot(xf,fit_line, c = 'green', label = 'Reg. femmine')
 plt.legend()
 #Nel plot viene mostrato lo scatter plot di altezza e peso senza considerare il sesso con la linea che rappresenta la retta che fitta i dati, inoltre dato che la dipendenza tra altezza e peso per i due generi è compatibile, si può fare un unico fit
 
 
 
 """ Allenare uno o più algoritmi di classificazione dividendo il dataset in train e target """
-X, y = data_set[['Weight', 'Height']], data_set['Gender']
-len(X)
-y.head()
+spec, gender = data_set[['Weight', 'Height']], data_set['Gender']
+
 
 scaler = StandardScaler()
 pipeline = Pipeline([('transformer', scaler), ('estimator', GaussianNB())]) #pipeline per scalare e poi allenare l'estimatore
-scores = cross_val_score(pipeline, X, y, cv=20) #restituisce i valori della cross validation
-print(scores)
-print(np.mean(scores))
-
-score = []
-for P in range(1,10):
-    pipeline = Pipeline([('transformer', scaler), ('estimator', DecisionTreeClassifier(max_depth = P))])
-    scores = cross_val_score(pipeline, X, y, cv=20)
-    print('')
-    print(scores)
-    print('Max depth = ', P, ' Average score = ',np.mean(scores))
-    score.append(np.mean(scores))
-
-plt.title('Best depth decision tree')
-plt.xlabel('Max depth')
-plt.ylabel('Score')
-plt.plot(range(1,10), score)
+goal = cross_val_score(pipeline, spec, gender, cv=20) #restituisce i valori della cross validation
+print(goal)
+print(np.mean(goal))#ritorna al 90%
 
 plt.show() #io che uso visual studio devo insere questo per far si che si visualizzino i grafici (li visualizzo con python launcher e python IDLE)
-#I due metodi di classificazione hanno risultati compatibili
+
