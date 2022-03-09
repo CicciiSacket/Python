@@ -1,8 +1,5 @@
 
 #Ricerca del valore minimo ( Funzione min() dello standard python )
-from turtle import left, right
-
-
 def ourMin(List):
     pos_min = 0
     current = 1
