@@ -1,5 +1,5 @@
 #L'ordinamento viene fatto all'interno dell'array
-def InsertionSort(A):
+def InsertionSort(A): #Progettazione incrementale
     for index in range(len(A)):
         current = A[index] #Primo elemento della lisata
         i = index - 1 #Variabile i, ovvero elemento precedente a quello corrente
