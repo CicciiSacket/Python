@@ -8,9 +8,9 @@ def MergeSort(arr):
         L = arr[:mid]
         R = arr[mid:]
         MergeSort(L) # Sorting the first half
-        MergeSort(R) # Sorting the second half   -- VEDERE FIGURA 11.9 -- 
+        MergeSort(R) # Sorting the second half   -- VEDERE FIGURA 2.4 -- 
         i = j = k = 0 #init for fusion
-        while i < len(L) and j < len(R):  # Copy data to temp arrays L[] and R[]
+        while i < len(L) and j < len(R):  # Copia in arrays L[] e R[]
             if L[i] < R[j]:
                 arr[k] = L[i] 
                 i += 1
