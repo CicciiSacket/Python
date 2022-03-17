@@ -1,7 +1,7 @@
 from Swap import swap #import della funzione definita in swap 
 
 def SelectionSort(lyst):
-    """ Ordina gli elementi in senso crescente; Complessità nell'ordine di NQuadro"""
+    """ Ordina gli elementi in senso crescente; Prestazione nell'ordine di NQuadro"""
     i = 0
     while i < len(lyst) - 1: #Esegue n-1 ricerche
         minIndex = i #Indice del minimo
