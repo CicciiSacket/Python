@@ -13,12 +13,12 @@ def main():
     # print('\n########\n')
     # print(tree.search_node(6))
     # print('\n########\n')
-    # print(tree.tree_min())
+    # print(tree.tree_min(96))
     # print('\n########\n')
-    # print(tree.tree_max())
+    # print(tree.tree_max(96))
     # print('\n########\n')
-    print(tree.tree_successor(tree.search_node(88)))
-    print(tree.tree_predecessor(tree.search_node(6)))
+    # print(tree.tree_successor(tree.search_node(88)))
+    # print(tree.tree_predecessor(tree.search_node(88)))
 
     print('\n#### END ####\n')
 
