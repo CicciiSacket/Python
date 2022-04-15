@@ -8,5 +8,5 @@ class nodo(object):
         self.label = label
 
     def get_info(self):
-        return {'key': self.key, 'child_right': self.child_right, 'child_left': self.child_left, 'parent': self.parent_node}
+        return {'label': self.label,'key': self.key, 'parent': self.parent_node }
         
