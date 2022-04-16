@@ -20,9 +20,11 @@ def main():
     # print('\n########\n')
     # print(tree.tree_successor(96))
     # print(tree.tree_predecessor(88))
-    tree.delete_node(88)
+    tree.view_tree_info()
+    print('\n########\n')
+    tree.delete_node(100)
     print('\n#### END ####\n')
-    # tree.view_tree()
+    tree.view_tree_info()
 
 
 if __name__ == "__main__":

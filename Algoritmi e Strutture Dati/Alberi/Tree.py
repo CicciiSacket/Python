@@ -1,3 +1,4 @@
+from cProfile import label
 from errno import ESTALE
 from tkinter import N, Y
 from tkinter.messagebox import NO
@@ -70,6 +71,17 @@ class Tree(object):
                 x = x['child_right']
         return x
 
+    def search_node_from_label(self,label_node):
+        x = self.tree['root']
+        if not x:
+            return Exception('nodo root vuoto!')
+        if label_node is None:
+            return Exception('Chiave di ricerca vuota non ammissibile!')
+        for _ in self.tree:
+            if self.tree[_]['label'] == label_node:
+                return self.tree[_]
+        return Exception('Node not found!')
+
     def tree_min(self,node_key):
         """ Search for the minimum value starting from a specific node """
         node = self.search_node(node_key)
@@ -110,37 +122,17 @@ class Tree(object):
             y = y['parent_node']
         return y
 
-    def transplant(self,node_key_1,node_key_2):
-        node_old = self.search_node(node_key_1)
-        node_new = self.search_node(node_key_2)
-        tmp_obj_node = nodo(node_new['key'],node_new['child_left'],node_new['child_right'],node_new['parent'],node_new['label'])
-        if not node_old or not node_new:
-            return Exception('Node not found')
-        if not node_old['parent']:
-            self.tree['root'] = { 'label': node_new['label'],'key': node_new['key'], 'child_right': node_new['child_right'], 'child_left': node_new['child_left'],'parent': node_new['parent'] }
-        elif node_new == tmp_obj_node.child_left:
-            tmp_obj_node.child_left = { 'label': node_new['label'],'key': node_new['key'], 'child_right': node_new['child_right'], 'child_left': node_new['child_left'],'parent': node_new['parent'] }
-        else:
-            tmp_obj_node.child_right = { 'label': node_new['label'],'key': node_new['key'], 'child_right': node_new['child_right'], 'child_left': node_new['child_left'],'parent': node_new['parent'] }
-        if node_new:
-            tmp_obj_node.parent_node = node_old['parent']
-
     def delete_node(self,node_key):
         node = self.search_node(node_key)
-        if not node:
-            return Exception('Node not found')
-        if not node['child_left']:
-            self.transplant(node['key'],node['child_right']['key'])
-        elif not node['child_right']:
-            self.transplant(node['key'],node['child_left']['key'])
-        else:
-            y = self.tree_min(node['child_right']['key'])
-            if y['parent'] != node['label']:
-                self.transplant(y['key'],y['child_right'])
-                y['child_right'] = node['child_right']
-                y['child_right']['parent'] = y
-            self.transplant(node['key'],y['key'])
-            y['child_left'] = node['child_left']
-            y['child_left']['parent'] = y
-        return self.view_tree_info()
+        if not node['child_left'] and not node['child_right']: #Caso 1 il nodo non ha figli
+            node_parent = self.search_node_from_label(node['parent'])
+            if node_parent['child_left'] == node:
+                node_parent['child_left'] = None
+            if node_parent['child_right'] == node:
+                node_parent['child_right'] = None
+            del self.tree[node['label']]
+            
 
+
+
+    
