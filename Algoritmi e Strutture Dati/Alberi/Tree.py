@@ -132,6 +132,21 @@ class Tree(object):
             if node_parent['child_right'] == node:
                 node_parent['child_right'] = None
                 del self.tree[node['label']]
+        if node['child_left']: #Caso due ha un figlio solo, a sinistra
+            node_parent = self.search_node_from_label(node['parent'])
+            node_child = self.search_node_from_label(node['child_left']['label'])
+            node_child['parent'] = node['parent']
+            node_parent['child_left'] = node_child
+            del self.tree[node['label']]
+        if node['child_right']: #Caso due ha un figlio solo a destra
+            node_parent = self.search_node_from_label(node['parent'])
+            node_child = self.search_node_from_label(node['child_right']['label'])
+            node_child['parent'] = node['parent']
+            node_parent['child_right'] = node_child
+            del self.tree[node['label']]  
+
+
+        
             
 
 
