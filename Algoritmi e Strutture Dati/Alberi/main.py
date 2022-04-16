@@ -3,11 +3,12 @@ from Tree import Tree
 def main():
     tree = Tree()
     tree.add_node_root(96)
-
     tree.add_node(88,'Figlio-3')
     tree.add_node(6,'Figlio-1')
     tree.add_node(100,'Figlio-2')
-    print('\n########\n')
+
+    # Test methods
+    # print('\n########\n')
     # print(tree.add_node(None,'Figlio-2'))
     # print(tree.add_node(111,None))
     # print('\n########\n')
@@ -17,12 +18,10 @@ def main():
     # print('\n########\n')
     # print(tree.tree_max(96))
     # print('\n########\n')
-    # print(tree.tree_successor(tree.search_node(88)))
-    # print(tree.tree_predecessor(tree.search_node(88)))
-
+    # print(tree.tree_successor(96))
+    # print(tree.tree_predecessor(88))
+    tree.delete_node(88)
     print('\n#### END ####\n')
-
-    # tree.view_tree_info()
     # tree.view_tree()
 
 

@@ -1,4 +1,5 @@
 from errno import ESTALE
+from tkinter import N, Y
 from tkinter.messagebox import NO
 from Nodo import nodo
 
@@ -87,18 +88,59 @@ class Tree(object):
             node = node['child_right']
         return node
 
-    def tree_successor(self,node):
-        """ Successore di un nodo 'node' è il nodo con la chiave più piccola ma maggiore di node['key']; -> None se la chiave del nodo è la maggiore nell'albero """
-        pass
+    def tree_successor(self,node_key):
+        """ Successor of a node 'node' is the node with the key smaller but greater than node ['key'] """
+        node = self.search_node(node_key)
+        if node['child_right']:
+            return self.tree_min(node['child_right']['key'])
+        y = node['parent_node']
+        while y and node is node['child_right']:
+            node = y 
+            y = y['parent_node']
+        return y
 
-    def tree_predecessor(self,node):
-        """ Predecessore di un nodo 'node' ... """
-        pass
+    def tree_predecessor(self,node_key):
+        """ Predecessor of a 'node' node """
+        node = self.search_node(node_key)
+        if node['child_left']:
+            return self.tree_max(node['child_left']['key'])
+        y = node['parent_node']
+        while y and node is node['child_left']:
+            node = y 
+            y = y['parent_node']
+        return y
 
+    def transplant(self,node_key_1,node_key_2):
+        node_old = self.search_node(node_key_1)
+        node_new = self.search_node(node_key_2)
+        tmp_obj_node = nodo(node_new['key'],node_new['child_left'],node_new['child_right'],node_new['parent'],node_new['label'])
+        if not node_old or not node_new:
+            return Exception('Node not found')
+        if not node_old['parent']:
+            self.tree['root'] = { 'label': node_new['label'],'key': node_new['key'], 'child_right': node_new['child_right'], 'child_left': node_new['child_left'],'parent': node_new['parent'] }
+        elif node_new == tmp_obj_node.child_left:
+            tmp_obj_node.child_left = { 'label': node_new['label'],'key': node_new['key'], 'child_right': node_new['child_right'], 'child_left': node_new['child_left'],'parent': node_new['parent'] }
+        else:
+            tmp_obj_node.child_right = { 'label': node_new['label'],'key': node_new['key'], 'child_right': node_new['child_right'], 'child_left': node_new['child_left'],'parent': node_new['parent'] }
+        if node_new:
+            tmp_obj_node.parent_node = node_old['parent']
 
-
-
-
-
-
+    def delete_node(self,node_key):
+        node = self.search_node(node_key)
+        if not node:
+            return Exception('Node not found')
+        if not node['child_left']:
+            self.transplant(node['key'],node['child_right']['key'])
+        elif not node['child_right']:
+            self.transplant(node['key'],node['child_left']['key'])
+        else:
+            y = self.tree_min(node['child_right']['key'])
+            if y['parent'] != node['label']:
+                self.transplant(y['key'],y['child_right'])
+                y['child_right'] = node['child_right']
+                y['child_right']['parent'] = y
+            self.transplant(node['key'],y['key'])
+            y['child_left'] = node['child_left']
+            y['child_left']['parent'] = y
+        return self.view_tree_info()
 

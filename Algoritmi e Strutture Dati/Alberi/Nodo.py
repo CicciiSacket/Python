@@ -9,4 +9,6 @@ class nodo(object):
 
     def get_info(self):
         return {'label': self.label,'key': self.key, 'parent': self.parent_node }
+
+    
         
