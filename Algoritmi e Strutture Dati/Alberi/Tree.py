@@ -1,13 +1,6 @@
-from cProfile import label
-from errno import ESTALE
-from hashlib import new
-from platform import node
-from tkinter import N, Y
-from tkinter.messagebox import NO
 from Nodo import nodo
 
 class Tree(object):
-    """ Albero https://github.com/joowani/binarytree"""
     def __init__(self):
         self.tree = {}
 
@@ -138,6 +131,7 @@ class Tree(object):
             new_node['parent'] = old_parent
 
     def delete_node(self,node_key):
+        """ delete the root node in the tree object """
         z = self.search_node(node_key)
         if not z['child_left']:
             self.transplant(z['key'],z['child_right']['key'])
@@ -153,11 +147,3 @@ class Tree(object):
             y['child_left'] = z['child_left']
             y['child_left']['parent'] = y['parent']
         del self.tree[z['label']]
-
-
-        
-            
-
-
-
-    
