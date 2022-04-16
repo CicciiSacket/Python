@@ -20,7 +20,7 @@ def main():
     # print('\n########\n')
     # print(tree.tree_successor(96))
     # print(tree.tree_predecessor(88))
-    # tree.view_tree()
+    tree.view_tree()
     print('\n########\n')
     tree.delete_node(88)
     print('\n########\n')

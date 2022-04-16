@@ -1,5 +1,7 @@
 from cProfile import label
 from errno import ESTALE
+from hashlib import new
+from platform import node
 from tkinter import N, Y
 from tkinter.messagebox import NO
 from Nodo import nodo
@@ -122,28 +124,35 @@ class Tree(object):
             y = y['parent_node']
         return y
 
+    def transplant(self,node_key_1,node_key_2):
+        old_node = self.search_node(node_key_1)
+        new_node = self.search_node(node_key_2) 
+        old_parent = self.search_node_from_label(old_node['parent'])
+        if not old_parent:
+            self.tree['root'] = new_node
+        elif old_node == old_parent['child_left']:
+            old_parent['child_left'] = new_node
+        else:
+            old_parent['child_right'] = new_node
+        if new_node:
+            new_node['parent'] = old_parent
+
     def delete_node(self,node_key):
-        node = self.search_node(node_key)
-        if not node['child_left'] and not node['child_right']: #Caso 1 il nodo non ha figli
-            node_parent = self.search_node_from_label(node['parent'])
-            if node_parent['child_left'] == node:
-                node_parent['child_left'] = None
-                del self.tree[node['label']]
-            if node_parent['child_right'] == node:
-                node_parent['child_right'] = None
-                del self.tree[node['label']]
-        if node['child_left']: #Caso due ha un figlio solo, a sinistra
-            node_parent = self.search_node_from_label(node['parent'])
-            node_child = self.search_node_from_label(node['child_left']['label'])
-            node_child['parent'] = node['parent']
-            node_parent['child_left'] = node_child
-            del self.tree[node['label']]
-        if node['child_right']: #Caso due ha un figlio solo a destra
-            node_parent = self.search_node_from_label(node['parent'])
-            node_child = self.search_node_from_label(node['child_right']['label'])
-            node_child['parent'] = node['parent']
-            node_parent['child_right'] = node_child
-            del self.tree[node['label']]  
+        z = self.search_node(node_key)
+        if not z['child_left']:
+            self.transplant(z['key'],z['child_right']['key'])
+        elif not z['child_right']:
+            self.transplant(z['key'],z['child_left']['key'])
+        else:
+            y = self.tree_min(z['child_right']['key'])
+            if y['parent'] != z['label']:
+                self.transplant(y['key'],y['child_right']['key'])
+                y['child_right'] = z['child_right']
+                y['child_right']['parent'] = y['parent']
+            self.transplant(z['key'],y['key'])
+            y['child_left'] = z['child_left']
+            y['child_left']['parent'] = y['parent']
+        del self.tree[z['label']]
 
 
         
