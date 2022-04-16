@@ -128,9 +128,10 @@ class Tree(object):
             node_parent = self.search_node_from_label(node['parent'])
             if node_parent['child_left'] == node:
                 node_parent['child_left'] = None
+                del self.tree[node['label']]
             if node_parent['child_right'] == node:
                 node_parent['child_right'] = None
-            del self.tree[node['label']]
+                del self.tree[node['label']]
             
 
 
