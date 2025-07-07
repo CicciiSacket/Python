@@ -1,0 +1,53 @@
+from matplotlib import pyplot as plt
+from function import AnalisiExcel
+
+def main():
+    # Inizializza l'analisi
+    file_path = 'originale-per-analisi.xlsx'
+    analisi = AnalisiExcel(file_path)
+    
+    # Opzione 1: Esegui analisi completa con configurazione personalizzata
+    # print("=== MODALITÀ 1: ANALISI CON GRAFICI PERSONALIZZATI ===")
+    
+    # # Configura quali grafici vuoi a torta
+    # configurazione_torta = {
+    #     'distribuzione_sesso': 'pie',        # Grafico a torta per sesso
+    #     'distribuzione_fasce_eta': 'pie',    # Grafico a torta per fasce età
+    #     'distribuzione_diagnosi': 'bar',     # Grafico a barre per diagnosi
+    #     'distribuzione_virus': 'pie',        # Grafici a torta per virus
+    #     'distribuzione_mortalita': 'pie'     # Grafico a torta per mortalità
+    # }
+    
+    # analisi.esegui_analisi_completa(mostra_grafici=True, configurazione_grafici=configurazione_torta)
+    
+    # Opzione 2: Esegui analisi singole con tipo di grafico personalizzato
+    # print("\n=== MODALITÀ 2: ANALISI SINGOLE PERSONALIZZATE ===")
+    # analisi.distribuzione_sesso(tipo_grafico='pie')     # Grafico a torta
+    # analisi.distribuzione_sesso(tipo_grafico='bar')     # Grafico a barre
+    # plt.show()
+    
+    # Opzione 3: Confronto diretto - stesso dato, grafici diversi
+    # print("\n=== MODALITÀ 3: CONFRONTO GRAFICI ===")
+    # print("Distribuzione sesso - Grafico a barre:")
+    # analisi.distribuzione_sesso(tipo_grafico='bar')
+    # plt.show()
+    # 
+    # print("Distribuzione sesso - Grafico a torta:")
+    # analisi.distribuzione_sesso(tipo_grafico='pie')
+    # plt.show()
+    
+    # Opzione 4: Esempi di tutte le funzioni personalizzabili
+    # print("\n=== MODALITÀ 4: ESEMPI GRAFICI A TORTA ===")
+    analisi.distribuzione_sesso(tipo_grafico='pie')
+    # plt.show()
+    # analisi.distribuzione_fasce_eta(tipo_grafico='pie')
+    # plt.show()
+    # analisi.distribuzione_diagnosi(tipo_grafico='pie')
+    # plt.show()
+    # analisi.distribuzione_virus(tipo_grafico='pie')
+    # plt.show()
+    # analisi.distribuzione_mortalita(tipo_grafico='pie')
+    # plt.show()
+
+if __name__ == "__main__":
+    main()
